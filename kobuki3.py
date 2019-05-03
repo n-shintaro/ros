@@ -15,37 +15,32 @@ class Kobuki():
         self.stopa=0
         self.count=0
     #bumper ivent
-    def callback(bumper):
-        back_vel=Twist()
-        back_vel.angular.z=vel_rot
-        self.bump=1
-        r = rospy.Rate(10.0)
-        for i in range(1000):
-            pub.publish(back_vel)
-            r.sleep()
-    def stop(wheel_drop):
+    def callback(self,bumper):
+        print(self.bump)
+        self.bump=0
+        self.stopa=0
+        self.count=0
+        while not rospy.is_shutdown(): 
+		vel = Twist()
+        	#print(vel)
+        	#r = rospy.Rate(10.0)
+        	#for i in range(10):
+        	if self.bump==0 and self.stopa==0 and self.count<10000:
+            		vel.angular.z=-0.5
+            		self.count=self.count+1
+        	elif self.stopa==1:
+            		vel.linear.x=0
+            		#print('wheel up')
+        	elif self.count==10000:
+            		self.bump=1
+            		self.count=0
+                elif self.bump==1:
+ 	    		vel.linear.x =self.vel_x
+                	# print('nothing')
+                self.pub.publish(vel)
+    def stop(self,heel_drop):
         stop_vel= Twist()
         self.stopa=1
-    def publish():
-        vel = Twist()
-        #print(vel)
-        #r = rospy.Rate(10.0)
-        #for i in range(10):
-        if self.bump==1 and self.stopa==0 and self.count<10000:
-            vel.angular.z=-0.5
-            print vel
-            pub.publish(vel)
-            count=count+1
-        elif self.stopa==1:
-            vel.linear.x=0
-            #print('wheel up')
-        elif self.count==10000:
-            self.bump=0
-            self.count=0
-        else:
- 	    vel.linear.x = vel_x
-                # print('nothing')
-            pub.publish(vel)
 if __name__=="__main__":
     rospy.init_node('kobuki3')
     kobuki=Kobuki()

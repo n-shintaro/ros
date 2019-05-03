@@ -35,12 +35,22 @@ while not rospy.is_shutdown():
     #print(vel)
     #r = rospy.Rate(10.0)
     #for i in range(10):
-    if bump==1 and stopa==0 and count<10:
+    if bump==1 and stopa==0 and count<10000:
         vel.angular.z=-0.5
         print vel
+        pub.publish(vel)
         count=count+1
     elif stopa==1:
         vel.linear.x=0
+        #print('wheel up')
+    elif count==10000:
+        bump=0
+        count=0
     else:
  	vel.linear.x = vel_x
+       # print('nothing')
+    print('count=')
+    print(count)
+    print('bump=')
+    print(bump)
     pub.publish(vel)

@@ -54,12 +54,15 @@ class Kobuki():
 
     #dock_infrared
     def feel(self,dockinfrared):
-        #print("dockinfrared=")
+        homedata=dockinfrared.data
+        print(homedata[1]);
+        if homedata[0]==0:
         #print(dockinfrared)
+            print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         #print("dockinfrared.data[0]=")
         #print(dockinfrared.data[0])
         #print("dockinfrared.data[1]=")
-        print(dockinfrared.data[1])
+            print(dockinfrared.data[1])
 if __name__=="__main__":
     rospy.init_node('kobuki3')
     kobuki=Kobuki()

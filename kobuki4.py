@@ -54,11 +54,11 @@ class Kobuki():
 
     #dock_infrared
     def feel(self,dockinfrared):
-        homedata=dockinfrared.data
-        print(homedata[1]);
-        if homedata[0]==0:
+	receivedDataArray = [ord(n) for n in dockinfrared.data]
+	
+	print(receivedDataArray)
+        if receivedDataArray[0]==0 and receivedDataArray[1]==0 and receivedDataArray[2]==0:
         #print(dockinfrared)
-            print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         #print("dockinfrared.data[0]=")
         #print(dockinfrared.data[0])
         #print("dockinfrared.data[1]=")
